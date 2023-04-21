@@ -4,43 +4,43 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Дмитрий'; // укажите здесь ваше имя
 
-$posts = array(
-    array(
+$posts = [
+    [
         "title" => "Цитата",
         "type" => "post-quote",
         "content" => "Мы в жизни любим только раз, а после ищем лишь похожих",
         "username" => "Лариса",
         "avatar" => "userpic-larisa-small.jpg"
-    ),
-    array(
+    ],
+    [
         "title" => "Игра престолов",
         "type" => "post-text",
         "content" => "Не могу дождаться начала финального сезона своего любимого сериала!",
         "username" => "Владик",
         "avatar" => "userpic.jpg"
-    ),
-    array(
+    ],
+    [
         "title" => "Наконец, обработал фотки!",
         "type" => "post-photo",
         "content" => "rock-medium.jpg",
         "username" => "Виктор",
         "avatar" => "userpic-mark.jpg"
-    ),
-    array(
+    ],
+    [
         "title" => "Моя мечта",
         "type" => "post-photo",
         "content" => "coast-medium.jpg",
         "username" => "Лариса",
         "avatar" => "userpic-larisa-small.jpg"
-    ),
-    array(
+    ],
+    [
         "title" => "Лучшие курсы",
         "type" => "post-link",
         "content" => "www.htmlacademy.ru",
         "username" => "Владик",
         "avatar" => "userpic.jpg"
-    )
-);
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -250,7 +250,38 @@ $posts = array(
                     <h2><!--здесь заголовок--><?=$val['title']; ?></h2>
                 </header>
                 <div class="post__main">
-                    <!--здесь содержимое карточки--><?=$val['content']; ?>
+                    <?php if($val['type'] == 'post-quote'):?>
+                        <blockquote>
+                            <p>
+                            <?=$val['content']; ?>
+                            </p>
+                            <cite>Неизвестный Автор</cite>
+                        </blockquote>
+
+                    <?php elseif ($val['type'] == 'post-text'): ?>
+                        <p><?=$val['content']; ?></p>
+
+                    <?php elseif ($val['type'] == 'post-photo'): ?>
+                        <div class="post-photo__image-wrapper">
+                        <img src="img/<?=$val['content']; ?>" alt="Фото от пользователя" width="360" height="240">
+
+                    <?php elseif ($val['type'] == 'post-link'): ?>
+                        <div class="post-link__wrapper">
+                            <a class="post-link__external" href="http://" title="Перейти по ссылке">
+                                <div class="post-link__info-wrapper">
+                                    <div class="post-link__icon-wrapper">
+                                        <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                    </div>
+                                    <div class="post-link__info">
+                                        <h3><!--здесь заголовок--><?=$val['title']; ?></h3>
+                                    </div>
+                                </div>
+                                <span><?=$val['content']; ?></span>
+                            </a>
+
+                </div>
+                    <?php endif; ?>
+                    <!--здесь содержимое карточки--><?//=$val['content']; ?>
                 </div>
                 <footer class="post__footer">
                     <div class="post__author">
