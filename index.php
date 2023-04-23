@@ -4,6 +4,26 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Дмитрий'; // укажите здесь ваше имя
 
+//функция сокращения текста до 300 символов
+function trimtext($text, $limit = 300) {
+    if (strlen($text) <= $limit) {
+    return '<p>' . $text . '</p>';
+  } else {
+    $words = explode(' ', $text);
+    $totallength = 0;
+    $newtext = '';
+    foreach ($words as $word) {
+      $totallength += strlen($word);
+      if ($totallength > $limit) {
+        break;
+      }
+      $newtext .= $word . ' ';
+    }
+    $newtext .= '...';
+    return '<p>' . $newtext . '</p><a class="post-textmore-link" href="#">Читать далее</a>';
+  }
+}
+
 $posts = [
     [
         "title" => "Цитата",
@@ -250,7 +270,7 @@ $posts = [
                     <h2><!--здесь заголовок--><?=$val['title']; ?></h2>
                 </header>
                 <div class="post__main">
-                    <?php if($val['type'] == 'post-quote'):?>
+                    <?php if($val['type'] == 'post-quote'):?> <!-- карточка с цитатой -->
                         <blockquote>
                             <p>
                             <?=$val['content']; ?>
@@ -258,14 +278,14 @@ $posts = [
                             <cite>Неизвестный Автор</cite>
                         </blockquote>
 
-                    <?php elseif ($val['type'] == 'post-text'): ?>
-                        <p><?=$val['content']; ?></p>
+                    <?php elseif ($val['type'] == 'post-text'): ?> <!-- карточка с текстом -->
+                        <p><?=trimtext($val['content']); ?></p>
 
-                    <?php elseif ($val['type'] == 'post-photo'): ?>
+                    <?php elseif ($val['type'] == 'post-photo'): ?> <!-- карточка с фото -->
                         <div class="post-photo__image-wrapper">
                         <img src="img/<?=$val['content']; ?>" alt="Фото от пользователя" width="360" height="240">
 
-                    <?php elseif ($val['type'] == 'post-link'): ?>
+                    <?php elseif ($val['type'] == 'post-link'): ?> <!-- карточка с цитатой -->
                         <div class="post-link__wrapper">
                             <a class="post-link__external" href="http://" title="Перейти по ссылке">
                                 <div class="post-link__info-wrapper">
