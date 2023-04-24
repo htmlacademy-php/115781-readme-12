@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 require_once 'helpers.php';
 $is_auth = rand(0, 1);
 
 $user_name = 'Дмитрий'; // укажите здесь ваше имя
 
 //функция сокращения текста до 300 символов
-function trimtext($text, $limit = 300) {
+function trimtext(string $text, int  $limit = 300) {
     if (strlen($text) <= $limit) {
     return '<p>' . $text . '</p>';
   } else {
@@ -20,7 +21,7 @@ function trimtext($text, $limit = 300) {
       $newtext .= $word . ' ';
     }
     $newtext .= '...';
-    return '<p>' . $newtext . '</p><a class="post-textmore-link" href="#">Читать далее</a>';
+    return  $newtext;
   }
 }
 
@@ -100,7 +101,7 @@ $posts = [
         </form>
         <div class="header__nav-wrapper">
             <!-- здесь должен быть PHP код, который показывает следующий тег по условию -->
-            <?php if($is_auth==1) : ?>
+            <?php if($is_auth===1) : ?>
             <nav class="header__nav">
                 <ul class="header__my-nav">
                     <li class="header__my-page header__my-page--popular">
@@ -270,7 +271,7 @@ $posts = [
                     <h2><!--здесь заголовок--><?=$val['title']; ?></h2>
                 </header>
                 <div class="post__main">
-                    <?php if($val['type'] == 'post-quote'):?> <!-- карточка с цитатой -->
+                    <?php if($val['type'] === 'post-quote'):?> <!-- карточка с цитатой -->
                         <blockquote>
                             <p>
                             <?=$val['content']; ?>
@@ -278,14 +279,14 @@ $posts = [
                             <cite>Неизвестный Автор</cite>
                         </blockquote>
 
-                    <?php elseif ($val['type'] == 'post-text'): ?> <!-- карточка с текстом -->
+                    <?php elseif ($val['type'] === 'post-text'): ?> <!-- карточка с текстом -->
                         <p><?=trimtext($val['content']); ?></p>
 
-                    <?php elseif ($val['type'] == 'post-photo'): ?> <!-- карточка с фото -->
+                    <?php elseif ($val['type'] === 'post-photo'): ?> <!-- карточка с фото -->
                         <div class="post-photo__image-wrapper">
                         <img src="img/<?=$val['content']; ?>" alt="Фото от пользователя" width="360" height="240">
 
-                    <?php elseif ($val['type'] == 'post-link'): ?> <!-- карточка с цитатой -->
+                    <?php elseif ($val['type'] === 'post-link'): ?> <!-- карточка с цитатой -->
                         <div class="post-link__wrapper">
                             <a class="post-link__external" href="http://" title="Перейти по ссылке">
                                 <div class="post-link__info-wrapper">
