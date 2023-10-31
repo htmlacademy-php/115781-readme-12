@@ -136,7 +136,8 @@
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><!--здесь имя пользоателя--><?= $val['username']; ?></b>
-                                    <time class="post__time" datetime="">дата</time>
+                                    <?php $pd = $posts[$key]['date']; // alias для $post['date'] ?>
+                                    <time class="post__time" title="<?= get_title_date($pd); ?>" datetime="<?= $pd; ?>"><?= format_date($pd); ?></time>
                                 </div>
                             </a>
                         </div>
