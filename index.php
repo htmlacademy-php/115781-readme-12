@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once 'helpers.php';
+require_once 'utils.php';
 
 $is_auth = rand(0, 1);
 
@@ -70,6 +71,8 @@ $posts = [
 array_walk_recursive($posts, function(&$value) {
     $value = htmlspecialchars($value, ENT_QUOTES);
 });
+
+$posts = get_dates($posts); // добавляем в массив новый элемент дата
 
 $pageContent = include_template('main.php',
                                         [
